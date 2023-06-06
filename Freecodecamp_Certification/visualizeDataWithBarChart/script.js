@@ -4,11 +4,14 @@
         height: 500
     };
 
-    const padding = 60;
+    const padding={
+        x:60,
+        y:30
+    };
 
     const title=() =>{
         return d3.select('main')
-                .append('title')
+                .append('h1')
                 .attr('id','title')
                 .text("GDP of United States")
     };
@@ -35,6 +38,35 @@
         return requestData;
     };
 
+
+    const scalingData=(dates,gdpVal) => {
+        const minDate=d3.min(dates,(d)=>new Date(d));
+        const maxDate=d3.max(dates,(d)=> new Date(d));
+        const maxGDP=d3.max(gdpVal,(d)=> d);
+
+        const xScale=d3.scaleTime()  //scaleTime is used instead of scaleLinear as value is in date format
+                        .domain([minDate,maxDate])
+                        .range([padding.x,sizeOfSVG.width - padding.x / 2]) // 2 is divided as the same amt of padding isn't necessary at the end than used in the start
+        const yScale=d3.scaleLinear()
+                        .domain([0,maxGDP])
+                        .range([sizeOfSVG.height - padding.y, padding.y]);
+
+        return {xScale, yScale};
+    }
+
+    const axes= (scales,svg)=> {
+        svg.append('g')
+            .attr('id','x-axis')
+            .call(d3.axisBottom(scales.xScale))
+            .attr('transform',`translate(0, ${sizeOfSVG.height - padding.y})`)
+
+        svg.append('g')
+        .attr('id','y-axis')
+        .call(d3.axisLeft(scales.yScale))
+        .attr('transform',`translate(${padding.x},0)`)
+
+    }
+   
     requestData.onload=() =>{
         const dates=[]
         const gdpVal=[]
@@ -43,8 +75,11 @@
             dates.push(values[0])
             gdpVal.push(values[1])
         }); //this selects the "data" from the objects and filters the value
-    console.log(gdpVal)
+    const scales= scalingData(dates,gdpVal);
+    axes(scales,svg);
+    bars(dates,gdpVal,scales)
     }
+   
     const heartOfChart=() => {
         title();
         svg=canvas();
