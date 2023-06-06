@@ -34,9 +34,19 @@
         requestData=(GET,url,true) //asynchronous data of boolean true
     };
 
+    requestData.onload=() =>{
+        const dates=[]
+        const gdpVal=[]
+        const datasetFromAPI=JSON.parse(requestData.responseText())
+        datasetFromAPI.data.forEach(values =>{
+            dates.push(values[0])
+            gdpVal.push(values[0])
+        }); //this selects the "data" from the objects and filters the value
+    }
     const heartOfChart=() => {
         title();
         svg=canvas();
         tooltip();
         requestData=sendRequest(requestData);
+        requestData.send();
     }
