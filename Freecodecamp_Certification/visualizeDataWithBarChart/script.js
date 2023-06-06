@@ -29,19 +29,21 @@
     };
 
     let requestData=new XMLHttpRequest();
-    const sendRequest=()=>{
-        const url="https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json";
-        requestData=(GET,url,true) //asynchronous data of boolean true
+    const sendRequest=(requestData)=>{
+        const url='https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json';
+        requestData.open("GET",url,true) //asynchronous data of boolean true
+        return requestData;
     };
 
     requestData.onload=() =>{
         const dates=[]
         const gdpVal=[]
-        const datasetFromAPI=JSON.parse(requestData.responseText())
+        const datasetFromAPI=JSON.parse(requestData.responseText)
         datasetFromAPI.data.forEach(values =>{
             dates.push(values[0])
-            gdpVal.push(values[0])
+            gdpVal.push(values[1])
         }); //this selects the "data" from the objects and filters the value
+    console.log(gdpVal)
     }
     const heartOfChart=() => {
         title();
@@ -50,3 +52,4 @@
         requestData=sendRequest(requestData);
         requestData.send();
     }
+    heartOfChart()
