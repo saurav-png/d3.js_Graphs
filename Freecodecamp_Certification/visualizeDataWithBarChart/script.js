@@ -104,6 +104,20 @@
                                 .style('top',0)
                 });
     };
+
+    const credits= (datasetFromAPI) =>{
+        d3.select('main')
+            .append('div')
+            .attr('id','credits');
+
+        d3.select('#credits')
+            .append('p')
+            .text('Data Updated on: ' + datasetFromAPI.updated_at.match(/^.{10}/));
+
+        d3.select('#credits')
+            .append('p')
+            .text('For more info: ' + datasetFromAPI.description.match(/http.+pdf/));
+    };
    
     requestData.onload=() =>{
         const dates=[]
@@ -116,6 +130,7 @@
     const scales= scalingData(dates,gdpVal);
     axes(scales,svg);
     makeBars(dates,gdpVal,scales)
+    credits(datasetFromAPI)
     }
    
     const heartOfChart=() => {
