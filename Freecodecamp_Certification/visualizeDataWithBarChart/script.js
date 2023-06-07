@@ -69,6 +69,12 @@
     }
 
     const makeBars=(dates,gdpVal,scales)=> {
+
+        // adding colorscale for data
+        const colorScale = d3.scaleLinear()
+        .domain([0, gdpVal.length - 1])
+        .range(["red", "green"]);
+                
         svg.selectAll('rect')
             .data(gdpVal)
             .enter()
@@ -77,6 +83,7 @@
                 .attr('y',(d) => scales.yScale(d))
                 .attr('width',(sizeOfSVG.width - padding.x)/ gdpVal.length)
                 .attr('height',(d) => sizeOfSVG.height -scales.yScale(d) - padding.y)  
+                .attr('fill',(d, i) => colorScale(i))
         }
    
     requestData.onload=() =>{
