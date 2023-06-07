@@ -88,7 +88,7 @@
                 .attr('data-date',(d,i) => dates[i])
                 .attr('data-gdp',(d)=> d)
                 .on('mouseover',(e,d) =>{
-                    let bil= d.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+                    let bil= d.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,'); //this method gives the actual value in billions with comma separation
                     d3.select('#tooltip')
                         .style('opacity',0.8)
                         .style('left', e.pageX + 6 + 'px')
