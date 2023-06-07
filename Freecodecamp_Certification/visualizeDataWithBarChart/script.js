@@ -64,6 +64,7 @@
         .attr('id','y-axis')
         .call(d3.axisLeft(scales.yScale))
         .attr('transform',`translate(${padding.x},0)`)
+        .attr('class','tick')
 
     }
    
