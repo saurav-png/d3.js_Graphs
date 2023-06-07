@@ -67,6 +67,17 @@
         .attr('class','tick')
 
     }
+
+    const makeBars=(dates,gdpVal,scales)=> {
+        svg.selectAll('rect')
+            .data(gdpVal)
+            .enter()
+                .append('rect')
+                .attr('x',(d,i) => scales.xScale(new Date(dates[i]))) //dates in the JSON isn't in date format so had to be converted first
+                .attr('y',(d) => scales.yScale(d))
+                .attr('width',9)
+                .attr('height',(d) => sizeOfSVG.height -scales.yScale(d))  
+        }
    
     requestData.onload=() =>{
         const dates=[]
@@ -78,7 +89,7 @@
         }); //this selects the "data" from the objects and filters the value
     const scales= scalingData(dates,gdpVal);
     axes(scales,svg);
-    bars(dates,gdpVal,scales)
+    makeBars(dates,gdpVal,scales)
     }
    
     const heartOfChart=() => {
