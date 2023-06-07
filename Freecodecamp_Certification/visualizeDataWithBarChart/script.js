@@ -75,8 +75,8 @@
                 .append('rect')
                 .attr('x',(d,i) => scales.xScale(new Date(dates[i]))) //dates in the JSON isn't in date format so had to be converted first
                 .attr('y',(d) => scales.yScale(d))
-                .attr('width',9)
-                .attr('height',(d) => sizeOfSVG.height -scales.yScale(d))  
+                .attr('width',(sizeOfSVG.width - padding.x)/ gdpVal.length)
+                .attr('height',(d) => sizeOfSVG.height -scales.yScale(d) - padding.y)  
         }
    
     requestData.onload=() =>{
