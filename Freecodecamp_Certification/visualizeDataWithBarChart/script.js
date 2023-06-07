@@ -29,6 +29,8 @@
         return d3.select('body')
         .append('div')
         .attr('id','tooltip')
+        .style('position', 'absolute')
+        .style('opacity', 0);
     };
 
     let requestData=new XMLHttpRequest();
@@ -91,8 +93,8 @@
                     let bil= d.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,'); //this method gives the actual value in billions with comma separation
                     d3.select('#tooltip')
                         .style('opacity',0.8)
-                        .style('left', e.pageX + 6 + 'px')
-                        .style('top', e.pageY + 'px')
+                        .style('left', e.pageX + 10 + 'px') // Adjust the left position
+                        .style('top', e.pageY - 20 + 'px')
                         .html(`<p>Date: ${dates[gdpVal.indexOf(d)]}</p><p>$${bil} Billion</p>`)
                         .attr('data-date', dates[gdpVal.indexOf(d)])
                 })
