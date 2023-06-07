@@ -87,7 +87,23 @@
                 .attr('class','bar')
                 .attr('data-date',(d,i) => dates[i])
                 .attr('data-gdp',(d)=> d)
-        }
+                .on('mouseover',(e,d) =>{
+                    let bil= d.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+                    d3.select('#tooltip')
+                        .style('opacity',0.8)
+                        .style('left', e.pageX + 6 + 'px')
+                        .style('top', e.pageY + 'px')
+                        .html(`<p>Date: ${dates[gdpVal.indexOf(d)]}</p><p>$${bil} Billion</p>`)
+                        .attr('data-date', dates[gdpVal.indexOf(d)])
+                })
+                
+                .on('mouseout',() => {
+                    return d3.select('#tooltip')
+                                .style('opacity',0)
+                                .style('left',0)
+                                .style('top',0)
+                });
+    };
    
     requestData.onload=() =>{
         const dates=[]
