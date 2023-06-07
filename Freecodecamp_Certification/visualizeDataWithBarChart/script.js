@@ -84,6 +84,9 @@
                 .attr('width',(sizeOfSVG.width - padding.x)/ gdpVal.length)
                 .attr('height',(d) => sizeOfSVG.height -scales.yScale(d) - padding.y)  
                 .attr('fill',(d, i) => colorScale(i))
+                .attr('class','bar')
+                .attr('data-date',(d,i) => dates[i])
+                .attr('data-gdp',(d)=> d)
         }
    
     requestData.onload=() =>{
