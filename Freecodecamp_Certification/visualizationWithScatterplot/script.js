@@ -1,6 +1,6 @@
 const sizeOfSVG={
     width: 900,
-    height: 600
+    height: 500
 };
 
 const padding= 40
@@ -28,6 +28,39 @@ const tooltip=()=>{
     .style('position', 'absolute')
 };
 
+const scalingData=(year,seconds) =>{
+    const minYear=d3.min(year,(d)=> d)
+    const maxYear=d3.max(year,(d)=> d)
+    const maxSec=d3.max(seconds,(d) => d)
+    const xScale=d3.scaleLinear()
+                    .domain([minYear, maxYear])
+                    .range([padding,sizeOfSVG.width - padding/2])
+            
+    const yScale=d3.scaleTime()
+                    .domain([0,maxSec])
+                    .range([sizeOfSVG.height - padding, padding]);
+
+    return {xScale,yScale}
+}
+
+
+const axes= (scales,svg) => {
+    svg.append('g')
+            .attr('id','x-axis')
+            .call(d3.axisBottom(scales.xScale))
+            .attr('transform',`translate(0, ${sizeOfSVG.height - padding})`)
+
+    svg.append('g')
+    .attr('id','y-axis')
+    .call(d3.axisLeft(scales.yScale))
+    .attr('transform',`translate(${padding},0)`)
+
+}
+
+const circlePoints=(year, seconds,scales) => {
+
+}
+
 let requestData=new XMLHttpRequest();
 const sendRequest=(requestData)=>{
     const url="https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json";
@@ -35,6 +68,18 @@ const sendRequest=(requestData)=>{
     return requestData;
 };
 
+requestData.onload=() =>{
+    let year=[]
+    let seconds=[]
+    values=JSON.parse(requestData.responseText);
+    values.forEach(elements =>{
+        year.push(elements.Year)
+        seconds.push(elements.Seconds)
+    });
+    const scales=scalingData(year,seconds)
+    axes(scales,svg)
+    circlePoints(makeBars(year,seconds,scales))
+}
 
 const heartOfScatterplot=() => {
     title();
