@@ -58,7 +58,14 @@ const axes= (scales,svg) => {
 }
 
 const circlePoints=(year, seconds,scales) => {
-
+    svg.selectAll('circle')
+        .data(year)
+        .enter()
+            .append('circle')
+            .attr('class','dot')
+            .attr('r',5)
+            .attr('data-xvalue', (d, i) => year[i])
+            .attr('data-yvalue', (d, i) => new Date(seconds[i] * 1000))
 }
 
 let requestData=new XMLHttpRequest();
@@ -78,7 +85,7 @@ requestData.onload=() =>{
     });
     const scales=scalingData(year,seconds)
     axes(scales,svg)
-    circlePoints(makeBars(year,seconds,scales))
+    circlePoints(year,seconds,scales)
 }
 
 const heartOfScatterplot=() => {
