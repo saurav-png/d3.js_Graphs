@@ -58,7 +58,7 @@ const axes= (scales,svg) => {
 
 }
 
-const circlePoints=(year, seconds,scales,dopingStatus) => {
+const circlePoints=(year, seconds,scales,otherInfo) => {
     svg.selectAll('circle')
         .data(year)
         .enter()
@@ -70,12 +70,27 @@ const circlePoints=(year, seconds,scales,dopingStatus) => {
             .attr('cx',(d) => scales.xScale(d))
             .attr('cy',(d,i) => scales.yScale(new Date(seconds[i] *1000)))
             .attr('fill', (d, i) => {
-                if (dopingStatus[i] === '') {
+                if (otherInfo[i].Doping === '') {
                   return 'green';
                 } else {
                   return 'red';
                 }
-              });
+              })
+            
+            .on('mouseover',(e) =>{
+                d3.select('#tooltip')
+                    .style('opacity',0.8)
+                    .style('left', e.pageX + 10 + 'px') // Adjust the left position
+                    .style('top', e.pageY - 20 + 'px')
+                    
+            })
+            
+            .on('mouseout',() => {
+                return d3.select('#tooltip')
+                            .style('opacity',0)
+                            .style('left',0)
+                            .style('top',0)
+            });
 }
 
 let requestData=new XMLHttpRequest();
@@ -88,17 +103,25 @@ const sendRequest=(requestData)=>{
 requestData.onload=() =>{
     let year=[]
     let seconds=[]
-    let dopingStatus=[]
+    let otherInfo=[]
     values=JSON.parse(requestData.responseText);
     values.forEach(elements =>{
         year.push(elements.Year)
         seconds.push(elements.Seconds)
-        dopingStatus.push(elements.Doping)
+        let info = {
+            Time: elements.Time,
+            Place: elements.Place,
+            Name: elements.Name,
+            Nationality: elements.Nationality,
+            Doping: elements.Doping,
+            URL: elements.URL
+          };
+        otherInfo.push(info);
     });
-    console.log(dopingStatus)
+    console.log(otherInfo)
     const scales=scalingData(year,seconds)
     axes(scales,svg)
-    circlePoints(year,seconds,scales,dopingStatus)
+    circlePoints(year,seconds,scales,otherInfo)
 }
 
 const heartOfScatterplot=() => {
