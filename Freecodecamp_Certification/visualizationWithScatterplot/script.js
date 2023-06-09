@@ -26,6 +26,7 @@ const tooltip=()=>{
              .append('div')
              .attr('id','tooltip')
              .style('position', 'absolute')
+             .style('opacity', 0);
 };
 
 const scalingData=(year,seconds) =>{
@@ -77,20 +78,38 @@ const circlePoints=(year, seconds,scales,otherInfo) => {
                 }
               })
             
-            .on('mouseover',(e) =>{
-                d3.select('#tooltip')
-                    .style('opacity',0.8)
-                    .style('left', e.pageX + 10 + 'px') // Adjust the left position
-                    .style('top', e.pageY - 20 + 'px')
-                    
-            })
+        .on('mouseover', function (e, d) {
+            const circle = d3.select(this);
+            const xValue = circle.attr('data-xvalue');
+            const yValue = circle.attr('data-yvalue');
+            const index = seconds.findIndex(sec => new Date(sec * 1000).getTime() === new Date(yValue).getTime());
+            const dopingInfo = otherInfo[index].Doping === '' ? 'No allegations' : otherInfo[index].Doping;
+            d3.select('#tooltip')
+                .style('opacity', 1)
+                .style('left', e.pageX + 'px')
+                .style('top', e.pageY + 'px')
+                .attr('data-year', xValue)
+                .html(
+                    `
+                    <p><strong>Year:</strong> ${xValue} <strong>Time:</strong> ${otherInfo[index].Time}</p>
+                    <p><strong>Place:</strong> ${otherInfo[index].Place}</p>
+                    <p><strong>Name:</strong> ${otherInfo[index].Name} <strong>Nationality:</strong> ${otherInfo[index].Nationality}</p>
+                    <p></p>
+                    <p><strong>Doping:</strong> ${dopingInfo}</p>
+                    `
+                );
+        })
+    
             
-            .on('mouseout',() => {
-                return d3.select('#tooltip')
-                            .style('opacity',0)
-                            .style('left',0)
-                            .style('top',0)
-            });
+            
+            
+        
+    .on('mouseout',() => {
+        return d3.select('#tooltip')
+                    .style('opacity',0)
+                    .style('left',0)
+                    .style('top',0)
+    });
 }
 
 let requestData=new XMLHttpRequest();
@@ -114,10 +133,9 @@ requestData.onload=() =>{
             Name: elements.Name,
             Nationality: elements.Nationality,
             Doping: elements.Doping,
-            URL: elements.URL
           };
         otherInfo.push(info);
-    });
+    })
     console.log(otherInfo)
     const scales=scalingData(year,seconds)
     axes(scales,svg)
