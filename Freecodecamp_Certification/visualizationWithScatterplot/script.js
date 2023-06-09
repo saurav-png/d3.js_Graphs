@@ -31,13 +31,14 @@ const tooltip=()=>{
 const scalingData=(year,seconds) =>{
     const minYear=d3.min(year,(d)=> d)
     const maxYear=d3.max(year,(d)=> d)
-    const maxSec=d3.max(seconds,(d) => d)
+    const minSec=d3.min(seconds,(d) => new Date(d *1000))
+    const maxSec=d3.max(seconds,(d) => new Date(d *1000))
     const xScale=d3.scaleLinear()
                     .domain([minYear, maxYear])
                     .range([padding,sizeOfSVG.width - padding/2])
             
     const yScale=d3.scaleTime()
-                    .domain([0,maxSec])
+                    .domain([minSec,maxSec])
                     .range([sizeOfSVG.height - padding, padding]);
 
     return {xScale,yScale}
@@ -47,12 +48,12 @@ const scalingData=(year,seconds) =>{
 const axes= (scales,svg) => {
     svg.append('g')
             .attr('id','x-axis')
-            .call(d3.axisBottom(scales.xScale))
+            .call(d3.axisBottom(scales.xScale).tickFormat(d3.format('d')))
             .attr('transform',`translate(0, ${sizeOfSVG.height - padding})`)
 
     svg.append('g')
     .attr('id','y-axis')
-    .call(d3.axisLeft(scales.yScale))
+    .call(d3.axisLeft(scales.yScale).tickFormat(d3.timeFormat('%M:%S')))
     .attr('transform',`translate(${padding},0)`)
 
 }
