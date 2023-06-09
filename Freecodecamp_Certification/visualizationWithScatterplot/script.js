@@ -71,9 +71,9 @@ const circlePoints=(year, seconds,scales,dopingStatus) => {
             .attr('cy',(d,i) => scales.yScale(new Date(seconds[i] *1000)))
             .attr('fill', (d, i) => {
                 if (dopingStatus[i] === '') {
-                  return 'red';
-                } else {
                   return 'green';
+                } else {
+                  return 'red';
                 }
               });
 }
