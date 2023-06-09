@@ -67,6 +67,8 @@ const circlePoints=(year, seconds,scales) => {
             .attr('r',5)
             .attr('data-xvalue', (d, i) => year[i])
             .attr('data-yvalue', (d, i) => new Date(seconds[i] * 1000))
+            .attr('cx',(d) => scales.xScale(d))
+            .attr('cy',(d,i) => scales.yScale(new Date(seconds[i] *1000)))
 }
 
 let requestData=new XMLHttpRequest();
