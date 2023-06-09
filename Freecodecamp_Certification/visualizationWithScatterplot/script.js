@@ -150,3 +150,29 @@ const heartOfScatterplot=() => {
     requestData.send();
 }
 heartOfScatterplot()
+
+// Define the legend data
+const legendData = [
+    { label: 'Doping Allegation', color: 'red' },
+    { label: 'No Allegations', color: 'green' }
+];
+
+// Create the legend
+const legend = d3.select('#legend')
+
+// Append legend items
+const legendItems = legend.selectAll('.legend-item')
+    .data(legendData)
+    .enter()
+        .append('div')
+        .attr('class', 'legend-item')
+
+// Append colored square boxes
+legendItems.append('div')
+    .attr('class', 'legend-box')
+    .style('background-color', d => d.color)
+
+// Append legend labels
+legendItems.append('span')
+    .attr('class', 'legend-label')
+    .text(d => d.label)
