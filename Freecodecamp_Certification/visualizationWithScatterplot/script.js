@@ -23,9 +23,9 @@ const canvas=()=>{
 
 const tooltip=()=>{
     return d3.select('body')
-    .append('div')
-    .attr('id','tooltip')
-    .style('position', 'absolute')
+             .append('div')
+             .attr('id','tooltip')
+             .style('position', 'absolute')
 };
 
 const scalingData=(year,seconds) =>{
@@ -58,7 +58,7 @@ const axes= (scales,svg) => {
 
 }
 
-const circlePoints=(year, seconds,scales) => {
+const circlePoints=(year, seconds,scales,dopingStatus) => {
     svg.selectAll('circle')
         .data(year)
         .enter()
@@ -69,6 +69,13 @@ const circlePoints=(year, seconds,scales) => {
             .attr('data-yvalue', (d, i) => new Date(seconds[i] * 1000))
             .attr('cx',(d) => scales.xScale(d))
             .attr('cy',(d,i) => scales.yScale(new Date(seconds[i] *1000)))
+            .attr('fill', (d, i) => {
+                if (dopingStatus[i] === '') {
+                  return 'red';
+                } else {
+                  return 'green';
+                }
+              });
 }
 
 let requestData=new XMLHttpRequest();
@@ -81,14 +88,17 @@ const sendRequest=(requestData)=>{
 requestData.onload=() =>{
     let year=[]
     let seconds=[]
+    let dopingStatus=[]
     values=JSON.parse(requestData.responseText);
     values.forEach(elements =>{
         year.push(elements.Year)
         seconds.push(elements.Seconds)
+        dopingStatus.push(elements.Doping)
     });
+    console.log(dopingStatus)
     const scales=scalingData(year,seconds)
     axes(scales,svg)
-    circlePoints(year,seconds,scales)
+    circlePoints(year,seconds,scales,dopingStatus)
 }
 
 const heartOfScatterplot=() => {
