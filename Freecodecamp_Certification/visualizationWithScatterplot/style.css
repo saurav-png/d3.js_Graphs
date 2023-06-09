@@ -29,6 +29,7 @@ font-family: Arial, Helvetica, sans-serif;
 font-weight: 700;
 text-decoration: underline;
 color:#015749 ;
+margin-bottom: 5em;
 }
 
 circle:hover{
@@ -41,3 +42,26 @@ border-radius:10px;
 text-align: justify;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+#legend {
+    position: absolute;
+    top: 10em;
+    left: 80px;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .legend-box {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+  
+  .legend-label {
+    font-size: 12px;
+  }
+  
