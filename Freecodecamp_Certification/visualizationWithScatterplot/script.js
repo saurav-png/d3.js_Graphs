@@ -29,10 +29,10 @@ const tooltip=()=>{
 };
 
 const scalingData=(year,seconds) =>{
-    const minYear=d3.min(year,(d)=> d)
-    const maxYear=d3.max(year,(d)=> d)
-    const minSec=d3.min(seconds,(d) => new Date(d *1000))
-    const maxSec=d3.max(seconds,(d) => new Date(d *1000))
+    const minYear=d3.min(year,(d)=> d-1) // -1 is to not shift position of circle from y-axis
+    const maxYear=d3.max(year,(d)=> d+1) // +1 is to to not shift position of circle from y-axis
+    const minSec=d3.min(seconds,(d) => new Date(d *(1000 -1))) // -1 is to not shift position of circle from x-axis
+    const maxSec=d3.max(seconds,(d) => new Date(d *(1000 +1))) // +1 is to not shift position of circle from x-axis
     const xScale=d3.scaleLinear()
                     .domain([minYear, maxYear])
                     .range([padding,sizeOfSVG.width - padding/2])
