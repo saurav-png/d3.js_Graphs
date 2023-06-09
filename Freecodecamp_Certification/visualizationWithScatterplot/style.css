@@ -1,6 +1,43 @@
+html{
+    background-image:url(../pngegg.png);
+    background-color:#bdbdbd;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
 body{
-    display:flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+display:flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+}
+
+main{
+background-color: #f5f5f5;
+position: relative;
+top:150px;
+border-radius: 20px;
+text-align: center;
+margin-bottom: 16em;
+}
+
+#title{
+font-size: 40px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: 700;
+text-decoration: underline;
+color:#015749 ;
+}
+
+circle:hover{
+fill:rgb(63, 63, 63);
+}
+
+#tooltip{
+background-color: rgb(2, 161, 140);
+border-radius:10px;
+text-align: justify;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
