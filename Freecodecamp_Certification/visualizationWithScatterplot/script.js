@@ -68,6 +68,7 @@ const circlePoints=(year, seconds,scales,otherInfo) => {
             .attr('r',5)
             .attr('data-xvalue', (d, i) => year[i])
             .attr('data-yvalue', (d, i) => new Date(seconds[i] * 1000))
+            .attr('data-identifier', (d, i) => year[i] + '-' + seconds[i])
             .attr('cx',(d) => scales.xScale(d))
             .attr('cy',(d,i) => scales.yScale(new Date(seconds[i] *1000)))
             .attr('fill', (d, i) => {
@@ -82,7 +83,8 @@ const circlePoints=(year, seconds,scales,otherInfo) => {
             const circle = d3.select(this);
             const xValue = circle.attr('data-xvalue');
             const yValue = circle.attr('data-yvalue');
-            const index = seconds.findIndex(sec => new Date(sec * 1000).getTime() === new Date(yValue).getTime());
+            const identifier = circle.attr('data-identifier');
+            const index = seconds.findIndex((sec, i) => (year[i] + '-' + sec) === identifier);
             const dopingInfo = otherInfo[index].Doping === '' ? 'No allegations' : otherInfo[index].Doping;
             d3.select('#tooltip')
                 .style('opacity', 1)
