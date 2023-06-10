@@ -2,7 +2,7 @@
 ## A simple site displaying graphs of various data from different CSV files(Learning D3)
 
 # Context
-### This repo has various project related to D3.js on the version 7 (https://d3js.org/d3.v7.min.js) from [FreeCodeCamp.org](https://www.freecodecamp.org/learn/data-visualization/)
+### This repo has various project related to D3.js on the [version 7](https://d3js.org/d3.v7.min.js) from [FreeCodeCamp.org](https://www.freecodecamp.org/learn/data-visualization/)
 
 
 # Live Preview of Code
