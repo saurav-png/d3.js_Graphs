@@ -4,7 +4,7 @@
         height: 600
     };
 
-    const padding= 60
+    const padding= 80
 
 // create Heading of the project
     const title=d3.select('main')
@@ -117,6 +117,21 @@ let svg
             .call(yAxis)
             .attr('id','y-axis')
             .attr('transform',`translate(${padding},0)`)
+
+        svg.append('text')
+        .attr('class', 'axis-label')
+        .attr('text-anchor', 'middle')
+        .attr('x', sizeOfSVG.width / 2)
+        .attr('y', sizeOfSVG.height - padding / 2.5)
+        .text('Years');
+        
+        svg.append('text')
+            .attr('class', 'axis-label')
+            .attr('text-anchor', 'middle')
+            .attr('x', -sizeOfSVG.height / 2)
+            .attr('y', padding / 5)
+            .attr('transform', 'rotate(-90)')
+            .text('Months');
     }
 
 
