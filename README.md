@@ -7,15 +7,23 @@
 
 # Live Preview of Code
 <p align="center">
-<h5>I haven't made this project device friendly. You may want to use big/medium screen display for better study the graph. </h5>
+  <img src="https://img.shields.io/badge/Device%20Compatibility-Big%2FMedium%20Screen-blue" alt="Device Compatibility">
 </p>
 
-* ### Visualization of Data with Bar Charts: [Web View](https://codepen.io/saurav-png/full/NWEKZxX)
-* ### Visualization of Data with Scatter Plot :[Web View](https://codepen.io/saurav-png/full/abQzzdd)
+This project provides live previews of data visualization with bar charts and scatter plots. To view the visualizations, it is recommended to use a big or medium screen display for optimal study of the graphs.
+
+### Visualization of Data
+
+| Project | Web View |
+|---------|----------|
+| Bar Charts | [View](https://codepen.io/saurav-png/full/NWEKZxX) |
+| Scatter Plot | [View](https://codepen.io/saurav-png/full/abQzzdd) |
+| Heat Map | [View](https://codepen.io/saurav-png/full/rNQVYOJ) |
 
 <p align="center">
     <b>Note: This is just one project of many which I am working on. More to come!</b>
 </p>
+
 
 # Credits
 * [FreeCodeCamp.org](https://www.freecodecamp.org/) of course
