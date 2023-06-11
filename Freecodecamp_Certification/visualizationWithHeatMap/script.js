@@ -106,6 +106,7 @@ let svg
                         .tickValues(d3.range(minYear, maxYear +1, 10))
                         .tickFormat(d3.format('d'))
         let yAxis= d3.axisLeft(yScale)
+                        .tickFormat(d3.timeFormat('%B'))
         
         svg.append('g')
                 .call(xAxis)
