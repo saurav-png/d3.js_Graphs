@@ -38,6 +38,18 @@ text-align: center;
     font-weight: 400;
 }
 
+rect:hover{
+    fill:rgb(63, 63, 63);
+    }
+
+#tooltip{
+    background-color: rgb(36, 36, 36);
+    border-radius:10px;
+    text-align: justify;
+    color: #ffff;
+    box-shadow: 0 2px 4px rgb(177, 177, 177);
+    }
+
 .legendStorage{
     width: 1200px;
     height: 160px;
