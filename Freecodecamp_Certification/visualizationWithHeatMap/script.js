@@ -28,6 +28,12 @@
                     .attr('height',sizeOfSVG.height)
 }
 
+// tooltip
+let tooltip=d3.select('body')
+                .append('div')
+                .attr('id','tooltip')
+                .style('position', 'absolute')
+
 // generate scales
     let xScale
     let yScale
@@ -86,7 +92,11 @@
                 .attr('data-temp',(d) =>{
                     return baseTemperature + d.variance
                 })
-                .attr('height', (sizeOfSVG.height -(2 * padding)) / 12)
+
+                .attr('data-variance',(d) =>{
+                    return  d.variance
+                })
+                    .attr('height', (sizeOfSVG.height -(2 * padding)) / 12)
                 .attr('y', (d) =>{
                     return yScale(new Date(0, d.month -1, 0, 0, 0, 0, 0))
                 })
@@ -97,6 +107,46 @@
                 .attr('x',(d) =>{
                     return xScale(d.year)
                 })
+
+                .on('mouseover', function(e) {
+                    tooltip.transition()
+                            .style('visibility','visible')
+                    let monthNames=[
+                        'January',
+                        'February',
+                        'March',
+                        'April',
+                        'May',
+                        'June',
+                        'July',
+                        'August',
+                        'September',
+                        'October',
+                        'November',
+                        'December'
+                    ]
+                    
+                    let year = d3.select(this).attr('data-year');
+                    let month = d3.select(this).attr('data-month');
+                    let temperature = d3.select(this).attr('data-temp')
+                    let variance = d3.select(this).attr('data-variance')
+
+                    temperature = parseFloat(temperature).toFixed(1);
+                    variance = parseFloat(variance).toFixed(1);
+
+                    let tooltipText = `<p>${year} ${monthNames[month]} </p><p>Temperature: ${temperature}</p><p>Variance: ${variance}</p>`;
+
+                    tooltip.html(tooltipText)
+                            .style('left', e.pageX + 5 + 'px')
+                            .style('top', e.pageY + 5 + 'px')
+                            .attr('data-year',year)
+                })
+                .on('mouseout',(d) => {
+                    tooltip.transition()
+                            .style('visibility','hidden')
+                            .style('left',0)
+                            .style('top',0)
+                });
     }
 
 // generate axes
