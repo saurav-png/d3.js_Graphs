@@ -41,7 +41,7 @@
             return d.year
         })
         xScale=d3.scaleLinear()
-                    .domain([minYear, maxYear])
+                    .domain([minYear, maxYear + 1]) // +1 was added as one column of rectangles was outside of the x-axis
                     .range([padding, sizeOfSVG.width -padding])
         yScale= d3.scaleTime()
                     .domain([new Date(0, 0, 0, 0, 0, 0, 0), new Date(0, 12, 0, 0, 0, 0, 0)])
