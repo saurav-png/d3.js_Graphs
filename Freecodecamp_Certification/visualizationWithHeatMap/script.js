@@ -134,6 +134,61 @@ let svg
             .text('Months');
     }
 
+// Define the legend data
+const legendData = [
+    { color: 'rgb(69, 117, 180)', value: '>= -5' },
+    { color: 'rgb(116, 173, 209)', value: '>= -3.7' },
+    { color: 'rgb(171, 217, 233)', value: '>= -3' },
+    { color: 'rgb(224, 243, 248)', value: '>= -1.6' },
+    { color: 'rgb(255, 255, 191)', value: '>= -0.2' },
+    { color: 'rgb(254, 224, 144)', value: '>= 0.7' },
+    { color: 'rgb(253, 174, 97)', value: '>= 1.7' },
+    { color: 'rgb(244, 109, 67)', value: '>= 2.5' },
+    { color: 'Crimson', value: '2.5+' }
+];
+
+// Define the dimensions of the legend
+const legendWidth = 550;
+const legendHeight = 70;
+const rectWidth = legendWidth / legendData.length;
+
+// Create the SVG container for the legend
+const svgLegend = d3.select("div.legendStorage")
+  .append("svg")
+  .attr('id','legend')
+  .attr("width", legendWidth)
+  .attr("height", legendHeight);
+
+// Add the "Variance level" text
+svgLegend.append("text")
+  .attr("x", legendWidth / 2)
+  .attr("y", 20)
+  .attr("dy", "0.35em")
+  .style("text-anchor", "middle")
+  .text("Variance level:");
+
+// Create the rectangles and text elements for the legend
+const legend = svgLegend.selectAll(".legend")
+  .data(legendData)
+  .enter()
+  .append("g")
+  .attr("class", "legend")
+  .attr("transform", (d, i) => "translate(" + (i * rectWidth) + ",30)");
+
+// Create the color rectangles
+legend.append("rect")
+  .attr("width", rectWidth)
+  .attr("height", legendHeight - 25)
+  .style("fill", d => d.color);
+
+// Create the text labels
+legend.append("text")
+  .attr("x", rectWidth / 2)
+  .attr("y", (legendHeight - 25) / 2)
+  .attr("dy", "0.35em")
+  .style("text-anchor", "middle")
+  .text(d => d.value);
+  
 
 let baseTemperature
 let monthlyVariance=[]
