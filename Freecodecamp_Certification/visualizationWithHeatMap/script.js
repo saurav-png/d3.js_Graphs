@@ -57,14 +57,24 @@
                 .attr('class','cell')
                 .attr('fill',(d) =>{
                     variance=d.variance
-                    if(variance <= -2){
-                        return 'SteelBlue'
-                    }else if(variance<= -1){
-                        return 'LightSteelBlue'
-                    }else if(variance < 1){
-                        return 'Orange'
-                    }else{
-                        return 'Crimson'
+                    if (variance <= -5) {
+                        return 'rgb(69, 117, 180)';
+                    } else if (variance <= -3.7) {
+                        return 'rgb(116, 173, 209)';
+                    } else if (variance <= -3) {
+                        return 'rgb(171, 217, 233)';
+                    } else if (variance < -1.6) {
+                        return 'rgb(224, 243, 248)';
+                    } else if (variance < -0.2) {
+                        return 'rgb(255, 255, 191)';
+                    } else if (variance < 0.7) {
+                        return 'rgb(254, 224, 144)';
+                    } else if (variance < 1.7) {
+                        return 'rgb(253, 174, 97)';
+                    } else if (variance < 2.5) {
+                        return 'rgb(244, 109, 67)';
+                    } else {
+                        return 'Crimson';
                     }
                 })
                 .attr('data-year',(d) =>{
@@ -93,6 +103,7 @@
 let svg
     axes=() =>{
         let xAxis= d3.axisBottom(xScale)
+                        .tickValues(d3.range(minYear, maxYear +1, 10))
                         .tickFormat(d3.format('d'))
         let yAxis= d3.axisLeft(yScale)
         
