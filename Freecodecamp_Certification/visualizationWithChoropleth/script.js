@@ -7,7 +7,7 @@ let educationData
 // draw the canvas to display svg
 
 const sizeOfSVG={
-    width: 1200,
+    width: 1100,
     height: 600
 };
 
