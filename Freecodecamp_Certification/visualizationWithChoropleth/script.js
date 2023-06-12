@@ -21,6 +21,13 @@ const canvas=()=>{
 // create map
 const mapCreation=() => {
 
+    svg.selectAll('path')
+        .data(countyData)
+        .enter()
+            .append('path')
+            .attr('d', d3.geoPath())
+            .attr('class','county')
+
 }
 
 d3.json(UScountyURL).then(      //this method converts the JSON into js object automatically
