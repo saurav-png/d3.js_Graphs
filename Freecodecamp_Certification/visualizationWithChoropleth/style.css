@@ -22,6 +22,39 @@ main{
     background-color: #f5f5f5;
     border-radius: 20px;
     text-align: center;
-    min-width: 1000px;
-    min-height: 600px;
+    min-width: 1200px;
+    min-height: 800px;
+}
+
+#title{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 700;
+    text-decoration: underline;
+    color:#ff7424 ;
+    margin-top: 25px;
+    margin-bottom: 2em;
+    }
+
+#description{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 400;
+}
+
+.states {
+    fill: none;
+    stroke: #000;
+    stroke-width: 0.3;
+  }
+
+#tooltip{
+    position:absolute;
+    background:rgba(0, 0, 0, 0.8);
+    color:white;
+    padding:5px;
+    border-radius:10px;
+  }
+
+#source a:hover{
+    font-size: 18px;
+    text-decoration: underline;
 }
