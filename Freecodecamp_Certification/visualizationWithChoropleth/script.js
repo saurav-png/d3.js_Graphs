@@ -82,7 +82,11 @@ const mapCreation=() => {
             .style('top', 0)
             })
 
-
+            // create state border
+            svg.append('path')
+                .datum({ type: 'FeatureCollection', features: stateFeatures })
+                .attr('class', 'states')
+                .attr('d', d3.geoPath())
 
     // For color scaling
     // set color scale
@@ -134,6 +138,7 @@ d3.json(UScountyURL).then(      //this method converts the JSON into js object a
             console.log(error)
         }else{
             countyData=topojson.feature(data, data.objects.counties).features // topojson's feature to convert it to geojson for map creation. `.features` is to just select the features value from the array
+            stateFeatures = topojson.feature(data, data.objects.states).features
             // console.log(countyData)
 
             d3.json(USeducationURL).then(
