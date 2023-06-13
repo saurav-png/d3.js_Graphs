@@ -21,12 +21,31 @@ const canvas=()=>{
 // create map
 const mapCreation=() => {
 
+
+    // for color grading
+    const bachelorHighLowVal = d3.extent(educationData.map(d=>d.bachelorsOrHigher))
+     // console.log(bachelorHighLowVal);
+    const low = bachelorHighLowVal[0];
+    const high = bachelorHighLowVal[1];
+
+    const colors = d3.scaleThreshold()
+                        .domain(d3.range(low, high, (high-low)/9))
+                        .range(d3.schemeGreens[9]);
+
     svg.selectAll('path')
         .data(countyData)
         .enter()
             .append('path')
             .attr('d', d3.geoPath())
             .attr('class','county')
+            .attr('fill', (d)=>{
+                let id_GEOJSON= d.id
+                let eduMatch = educationData.filter((data)=>data.fips === id_GEOJSON);
+                if(eduMatch[0]){
+                return colors(eduMatch[0].bachelorsOrHigher)
+                }
+                return 0;
+            })
 
 }
 
