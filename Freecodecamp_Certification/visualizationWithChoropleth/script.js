@@ -8,7 +8,8 @@ let educationData
 
 const sizeOfSVG={
     width: 1100,
-    height: 600
+    height: 600,
+    padding: 60
 };
 
 const canvas=()=>{
@@ -31,7 +32,13 @@ const mapCreation=() => {
     const colors = d3.scaleThreshold()
                         .domain(d3.range(low, high, (high-low)/9))
                         .range(d3.schemeGreens[9]);
-
+                    
+    // tooltip
+    const tooltip = d3.select('body')
+                        .append('div')
+                        .attr('id','tooltip')
+                        .style('opacity', 0)
+   
     svg.selectAll('path')
         .data(countyData)
         .enter()
@@ -46,7 +53,79 @@ const mapCreation=() => {
                 }
                 return 0;
             })
+            .attr('data-fips', (d)=> d.id)
+            .attr('data-education',(d) =>{
+                let id_GEOJSON= d.id
+                let eduMatch=educationData.find((data) =>{      // same thing as color grading but using different function
+                    return data.fips === id_GEOJSON
+                })
+                return gradPercentage= eduMatch.bachelorsOrHigher
+            })
+            
+            
+            .on('mouseover', function(e,d){
 
+                let data_education = d3.select(this).attr('data-education')
+                tooltip.style('opacity', 1)
+                        .style('left', e.pageX + 5 + 'px')
+                        .style('top', e.pageY + 5 + 'px')
+                        .attr('data-education',data_education)
+                        .html(()=>{
+                        let eduMatch = educationData.filter(data=>data.fips==d.id);
+                        if(eduMatch[0]){return `${eduMatch[0].area_name}, ${eduMatch[0].state}<br/> ${eduMatch[0].bachelorsOrHigher}%`}
+                        })
+            })
+                
+            .on('mouseout', (d)=>{
+            tooltip.style('opacity', 0)
+            .style('left', 0)
+            .style('top', 0)
+            })
+
+
+
+    // For color scaling
+    // set color scale
+        const xScale = d3.scaleLinear()
+                            .domain([low, high])
+                            .range([sizeOfSVG.padding, sizeOfSVG.width / 2 - sizeOfSVG.padding]);
+
+    const xAxis = d3.axisBottom(xScale)
+                    .tickSize(25)
+                    .tickFormat(d => Math.round(d) + '%')
+                    .tickValues(colors.domain());
+
+    const legendSvg = d3.select('main')
+                        .append('svg')
+                        .attr('width', sizeOfSVG.width)
+                        .attr('height', sizeOfSVG.padding * 2);
+    
+    // append colors
+    legendSvg.append('g')
+                .attr('id', 'x-axis')
+                .attr('transform', 'translate(' + (sizeOfSVG.padding + sizeOfSVG.width / 3) + ',' + (sizeOfSVG.padding)* 1.3 + ')')
+                .call(xAxis)
+                .select('.domain')
+                .remove();
+
+    legendSvg.append('g')
+            .attr('id', 'legend')
+            .selectAll('rect')
+            .data(colors.range().map(d => d))
+            .enter()
+            .append('rect')
+            .attr('height', 15)
+            .attr('width', (sizeOfSVG.width / 2 - sizeOfSVG.padding * 2) / 9)
+            .attr('fill', d => d)
+            .attr('x', (d, i) => (sizeOfSVG.padding + sizeOfSVG.width / 2.578) + i * ((sizeOfSVG.width / 2 - sizeOfSVG.padding * 2) / 9))
+            .attr('y', sizeOfSVG.padding * 1.3);
+
+    legendSvg.append('g')
+                .attr('id', 'source')
+                .append('text')
+                .html('Source: <a href="https://www.ers.usda.gov/data-products/county-level-data-sets/county-level-data-sets-download-data/" target="_blank">USDA Economic Research Service</a>')
+                .attr('x', sizeOfSVG.padding)
+                .attr('y', sizeOfSVG.padding)
 }
 
 d3.json(UScountyURL).then(      //this method converts the JSON into js object automatically
@@ -55,7 +134,7 @@ d3.json(UScountyURL).then(      //this method converts the JSON into js object a
             console.log(error)
         }else{
             countyData=topojson.feature(data, data.objects.counties).features // topojson's feature to convert it to geojson for map creation. `.features` is to just select the features value from the array
-            console.log(countyData)
+            // console.log(countyData)
 
             d3.json(USeducationURL).then(
                 (data,error) =>{
@@ -63,7 +142,7 @@ d3.json(UScountyURL).then(      //this method converts the JSON into js object a
                         console.log(error)
                     }else{
                         educationData=data
-                        console.log(educationData)
+                        // console.log(educationData)
                         svg=canvas()
                         mapCreation()
                     }
