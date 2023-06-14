@@ -29,6 +29,12 @@ const canvas=d3.select('main')
 
 treeMapCreate=() =>{
 
+    let ladder=d3.hierarchy(gameData, (node) => node.children)
+                 .sum((node) => node.value)
+                 .sort((node1, node2) => node2.value - node1.value)
+    
+    console.log(ladder)
+
 }
 
 
