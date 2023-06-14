@@ -39,8 +39,8 @@ treeMapCreate=() =>{
 
     makeTreeMap(ladder)
 
-    console.log(ladder)
-
+    gameTiles=ladder.leaves()
+    console.log(gameTiles)
 }
 
 
