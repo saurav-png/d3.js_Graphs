@@ -5,7 +5,7 @@ This repository contains various projects related to D3.js version 7 from [FreeC
 
 
 # See my certification :fire:
-<a href="https://www.freecodecamp.org/certification/saulgoodman/data-visualization"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/FreeCodeCamp_logo.svg/1920px-FreeCodeCamp_logo.svg.png" alt="data-visualization-certificate" width="200" height="70"></a>
+<a href="https://www.freecodecamp.org/certification/saulgoodman/data-visualization"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/FreeCodeCamp_logo.svg/1920px-FreeCodeCamp_logo.svg.png" alt="data-visualization-certificate" width="900" height="90"></a>
 
 
 ## Live Preview of Code :computer:
