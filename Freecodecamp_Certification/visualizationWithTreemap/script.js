@@ -100,6 +100,74 @@ treeMapCreate=() =>{
             .attr('height', (d) => d.y1 - d.y0)
             .html((d) => d.data.name)
 
+
+// for legend
+    let svgLegend = d3.select('main')
+                        .append('div')
+                        .attr('class','legendStorage')
+                        .append('svg')
+                        .attr('width', 500)
+                        .attr('height', 400)
+
+    // Create the legend container
+    let legend = svgLegend.append("g")
+                            .attr("id", "legend")
+                            .attr("transform", `translate(200, 30)`) // Adjust the position of the legend
+    
+    // Create the legend rectangles and console names
+    let legendRectSize = 18; // Size of each legend rectangle
+    let legendSpacing = 4; // Spacing between legend elements
+
+    // Split the categories into two arrays for the two columns
+    let column1Categories = uniqueCategories.slice(0, 9);
+    let column2Categories = uniqueCategories.slice(9);
+    
+    let column1LegendItems = legend.selectAll(".legend-item-column1")
+                                    .data(column1Categories)
+                                    .enter()
+                                        .append("g")
+                                        .attr("class", "legend-item-column1")
+                                        .attr("transform", (d, i) => {
+                                        let height = legendRectSize + legendSpacing;
+                                        let horiz = 0; // Adjust the horizontal position for the first column
+                                        let verti = i * height;
+                                        return `translate(${horiz} , ${verti})`;
+                                        })
+
+    column1LegendItems.append("rect")
+                        .attr("class", "legend-item")
+                        .attr("width", legendRectSize)
+                        .attr("height", legendRectSize)
+                        .style("fill", colorScale);
+
+    column1LegendItems.append("text")
+                        .attr("x", legendRectSize + legendSpacing)
+                        .attr("y", legendRectSize - legendSpacing)
+                        .text((d) => { return d; });
+
+    let column2LegendItems = legend.selectAll(".legend-item-column2")
+                                    .data(column2Categories)
+                                    .enter()
+                                        .append("g")
+                                        .attr("class", "legend-item-column2")
+                                        .attr("transform", (d, i) => {
+                                            let height = legendRectSize + legendSpacing;
+                                            let horiz = 100; // Adjust the horizontal position for the second column
+                                            let verti = i * height
+                                            return `translate(${horiz} , ${verti})`
+                                        })
+    
+    column2LegendItems.append("rect")
+                        .attr("class", "legend-item")
+                        .attr("width", legendRectSize)
+                        .attr("height", legendRectSize)
+                        .style("fill", colorScale);
+
+    column2LegendItems.append("text")
+                        .attr("x", legendRectSize + legendSpacing)
+                        .attr("y", legendRectSize - legendSpacing)
+                        .text((d) => d);
+
 }
 
 
