@@ -98,9 +98,6 @@ treeMapCreate=() =>{
             .style('font-size', 11)
             .attr('width', (d) => d.x1 - d.x0)
             .attr('height', (d) => d.y1 - d.y0)
-            .append('xhtml:div')
-            .style('width', '100%')
-            .style('height', '100%')
             .html((d) => d.data.name)
 
 }
