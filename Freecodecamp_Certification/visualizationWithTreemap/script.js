@@ -123,14 +123,13 @@ treeMapCreate=() =>{
 
                 
 
-    rects.append('foreignObject')
-            .attr('x', (d) => d.x0 + 2)
-            .attr('y', (d) => d.y0 + 10)
-            .style('font-size', 11)
-            .attr('width', (d) => d.x1 - d.x0)
-            .attr('height', (d) => d.y1 - d.y0)
-            .html((d) => d.data.name)
-
+    rects.append('text')
+        .attr('class', 'tile-text text-wrap')
+        .attr('x', (d) => d.x0 + 5)
+        .attr('y', (d) => d.y0 + 10)
+        .attr('font-size', 11)
+        .text((d) => d.data.name)
+        
 
 // for legend
     let svgLegend = d3.select('main')
@@ -143,11 +142,11 @@ treeMapCreate=() =>{
     // Create the legend container
     let legend = svgLegend.append("g")
                             .attr("id", "legend")
-                            .attr("transform", `translate(200, 30)`) // Adjust the position of the legend
+                            .attr("transform", `translate(200, 30)`)
     
     // Create the legend rectangles and console names
-    let legendRectSize = 18; // Size of each legend rectangle
-    let legendSpacing = 4; // Spacing between legend elements
+    let legendRectSize = 18;
+    let legendSpacing = 4;
 
     // Split the categories into two arrays for the two columns
     let column1Categories = uniqueCategories.slice(0, 9);
@@ -160,7 +159,7 @@ treeMapCreate=() =>{
                                         .attr("class", "legend-item-column1")
                                         .attr("transform", (d, i) => {
                                         let height = legendRectSize + legendSpacing;
-                                        let horiz = 0; // Adjust the horizontal position for the first column
+                                        let horiz = 0;
                                         let verti = i * height;
                                         return `translate(${horiz} , ${verti})`;
                                         })
@@ -183,7 +182,7 @@ treeMapCreate=() =>{
                                         .attr("class", "legend-item-column2")
                                         .attr("transform", (d, i) => {
                                             let height = legendRectSize + legendSpacing;
-                                            let horiz = 100; // Adjust the horizontal position for the second column
+                                            let horiz = 100;
                                             let verti = i * height
                                             return `translate(${horiz} , ${verti})`
                                         })
