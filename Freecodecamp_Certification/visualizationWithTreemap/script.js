@@ -33,6 +33,12 @@ treeMapCreate=() =>{
                  .sum((node) => node.value)
                  .sort((node1, node2) => node2.value - node1.value)
     
+    let makeTreeMap = d3.treemap()
+                        .size([sizeOfCanvas.width,sizeOfCanvas.height])
+
+
+    makeTreeMap(ladder)
+
     console.log(ladder)
 
 }
