@@ -23,5 +23,28 @@ main{
     border-radius: 20px;
     text-align: center;
     min-width: 1200px;
-    min-height: 800px;
+    max-height: 1050px;
 }
+
+#title{
+    font-family:Helvetica;
+    font-weight: 700;
+    text-decoration: underline;
+    color:#009400 ;
+    margin-top: 25px;
+    margin-bottom: 2em;
+    }
+
+#description{
+    font-family:Arial;
+    font-weight: 400;
+}
+
+#tooltip{
+    position:absolute;
+    background:rgba(0, 0, 0, 0.8);
+    color:white;
+    padding:5px;
+    border-radius:10px;
+  }
+
