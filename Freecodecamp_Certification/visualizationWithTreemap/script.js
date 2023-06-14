@@ -124,7 +124,7 @@ treeMapCreate=() =>{
                 
 
     rects.append('text')
-        .attr('class', 'tile-text text-wrap')
+        .attr('class', 'tile-text')
         .attr('x', (d) => d.x0 + 5)
         .attr('y', (d) => d.y0 + 10)
         .attr('font-size', 11)
