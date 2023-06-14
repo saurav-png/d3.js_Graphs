@@ -38,8 +38,8 @@ d3.json(gameDataURL).then(
         if(error){
             console.log(error)
         }else{
-            moviedata=data
-            console.log(moviedata)
+            movieData=data
+            console.log(movieData)
             treeMapCreate()
         }
     }
