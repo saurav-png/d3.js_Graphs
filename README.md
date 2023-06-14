@@ -1,8 +1,12 @@
 # D3.js
 ## A set of projects that uses D3.js for data visualization from AJAX servers. :bar_chart:
 
-
 This repository contains various projects related to D3.js version 7 from [FreeCodeCamp.org](https://www.freecodecamp.org/learn/data-visualization/).
+
+
+# See my certification :fire:
+<a href="https://www.freecodecamp.org/certification/saulgoodman/data-visualization"><img src="https://en.wikipedia.org/wiki/FreeCodeCamp#/media/File:FreeCodeCamp_logo.svg" alt="data-visualization-certificate" width="200" height="70"></a>
+
 
 ## Live Preview of Code :computer:
 
