@@ -99,6 +99,8 @@ treeMapCreate=() =>{
             .attr('data-name', (d) => d.data.name)
             .attr('data-category', (d) => d.data.category)
             .attr('data-value', (d) => d.data.value)
+            .attr('stroke', 'white')  // Add the stroke attribute
+            .attr('stroke-width', '1px')
             
             // tooltip section
             .on('mousemove', (e,d)=> {
