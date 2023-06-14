@@ -91,6 +91,18 @@ treeMapCreate=() =>{
             .attr('data-name', (d) => d.data.name)
             .attr('data-category', (d) => d.data.category)
             .attr('data-value', (d) => d.data.value)
+
+    rects.append('foreignObject')
+            .attr('x', (d) => d.x0 + 2)
+            .attr('y', (d) => d.y0 + 10)
+            .style('font-size', 11)
+            .attr('width', (d) => d.x1 - d.x0)
+            .attr('height', (d) => d.y1 - d.y0)
+            .append('xhtml:div')
+            .style('width', '100%')
+            .style('height', '100%')
+            .html((d) => d.data.name)
+
 }
 
 
