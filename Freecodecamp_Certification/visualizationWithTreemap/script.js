@@ -27,4 +27,20 @@ const canvas=d3.select('main')
                 .attr('width',sizeOfCanvas.width)
                 .attr('height',sizeOfCanvas.height)
 
+treeMapCreate=() =>{
 
+}
+
+
+// fetching data
+d3.json(gameDataURL).then(
+    (data,error) =>{
+        if(error){
+            console.log(error)
+        }else{
+            moviedata=data
+            console.log(moviedata)
+            treeMapCreate()
+        }
+    }
+)
