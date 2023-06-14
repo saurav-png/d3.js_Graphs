@@ -43,6 +43,14 @@ treeMapCreate=() =>{
     console.log(gameTiles)
 
 
+    // tooltip section
+
+    const tooltip = d3.select('body')
+                        .append('div')
+                        .attr('id','tooltip')
+                        .style('opacity', 0)
+
+
     // define color scale
     let categories = gameTiles.map((d) => {
         return d.data.category;
@@ -91,6 +99,29 @@ treeMapCreate=() =>{
             .attr('data-name', (d) => d.data.name)
             .attr('data-category', (d) => d.data.category)
             .attr('data-value', (d) => d.data.value)
+            
+            // tooltip section
+            .on('mousemove', (e,d)=> {
+
+                let data_name = d.data.name;
+                let data_category = d.data.category;
+                let data_value = d.data.value;
+                
+                tooltip.style('opacity', 1)
+                        .style('left', e.pageX + 10 + 'px')
+                        .style('top', e.pageY + 15 + 'px')
+                        .html(`Name: ${data_name}<br>Category: ${data_category}<br/>Value: ${data_value}`)
+                        .attr('data-value',data_value)
+            })
+            
+            
+            .on('mouseout', (d)=>{
+                tooltip.style('opacity', 0)
+                .style('left', 0)
+                .style('top', 0)
+                })
+
+                
 
     rects.append('foreignObject')
             .attr('x', (d) => d.x0 + 2)
