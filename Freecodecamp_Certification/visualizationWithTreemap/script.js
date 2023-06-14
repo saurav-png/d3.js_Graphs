@@ -41,6 +41,34 @@ treeMapCreate=() =>{
 
     gameTiles=ladder.leaves()
     console.log(gameTiles)
+
+
+    // define color scale
+    let categories = gameTiles.map((d) => {
+        return d.data.category;
+    });
+    
+    // Get the unique categories
+    let uniqueCategories = [...new Set(categories)];
+
+    let colorScale = d3.scaleOrdinal()
+                        .domain(uniqueCategories)
+                        .range(d3.schemeCategory10);
+
+
+    let rects = canvas.selectAll('g')
+                        .data(gameTiles)
+                        .enter()
+                            .append('g')
+    rects.append('rect')
+            .attr('class','tile')
+            .attr('fill',(d) =>{
+                return colorScale(d.data.category)
+            })
+            .attr("x", (d) => d.x0)
+            .attr("y", (d) => d.y0)
+            .attr("width", (d) => d.x1 - d.x0)
+            .attr("height", (d) => d.y1 - d.y0)
 }
 
 
